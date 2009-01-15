@@ -1,8 +1,11 @@
 package org.jboss.haze;
 
+import javax.jws.WebService;
+
 import com.amazonaws.ec2.doc._2008_12_01.*;
 
-public class AmazonEC2Service implements AmazonEC2PortType {
+@WebService(targetNamespace = "http://ec2.amazonaws.com/doc/2008-12-01/", wsdlLocation = "WEB-INF/ec2.wsdl")
+public class AmazonEC2 implements AmazonEC2PortType {
 
 	public AllocateAddressResponseType allocateAddress(
 			AllocateAddressType allocateAddressRequestMsgReq) {
