@@ -1,0 +1,11 @@
+<web-app ...>
+  <servlet>
+    <servlet-name>AmazonEC2Service</servlet-name>
+    <servlet-class>org.jboss.haze.AmazonEC2Service</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AmazonEC2Service</servlet-name>
+    <url-pattern>/*</url-pattern>
+  </servlet-mapping>
+</web-app>
+

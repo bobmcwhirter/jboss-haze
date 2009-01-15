@@ -2,7 +2,7 @@ package org.jboss.haze;
 
 import com.amazonaws.ec2.doc._2008_12_01.*;
 
-public class AmazonEC2Port implements AmazonEC2PortType {
+public class AmazonEC2Service implements AmazonEC2PortType {
 
 	public AllocateAddressResponseType allocateAddress(
 			AllocateAddressType allocateAddressRequestMsgReq) {
