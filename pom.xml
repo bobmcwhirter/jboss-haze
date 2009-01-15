@@ -1,0 +1,167 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.jboss.haze</groupId>
+  <artifactId>jboss-haze</artifactId>
+  <packaging>war</packaging>
+  <version>1.0.0.Beta1</version>
+  <name>JBoss EC2 Responder</name>
+  <description></description>
+
+
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxws</artifactId>
+            <version>2.0.9</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-http</artifactId>
+            <version>2.0.9</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-http-jetty</artifactId>
+            <version>2.0.9</version>
+        </dependency>
+
+
+      <dependency>
+        <groupId>org.jruby</groupId>
+        <artifactId>jruby-complete</artifactId>
+        <version>1.1.6</version>
+        <scope>compile</scope>
+      </dependency>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>3.8.1</version>
+        <scope>test</scope>
+      </dependency>
+    </dependencies>
+
+  <repositories>
+    <repository>
+      <id>repository.jboss.org</id>
+      <name>JBoss Releases Repository</name>
+      <url>http://repository.jboss.org/maven2</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>snapshots.jboss.org</id>
+      <name>JBoss Snapshots Repository</name>
+      <url>http://snapshots.jboss.org/maven2</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
+  <!-- Plugin Repositories -->
+  <pluginRepositories>
+    <pluginRepository>
+      <id>repository.jboss.org</id>
+      <name>JBoss Plugin Releases</name>
+      <url>http://repository.jboss.org/maven2</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </pluginRepository>
+    <pluginRepository>
+      <id>snapshots.jboss.org</id>
+      <name>JBoss Plugin Snapshots</name>
+      <url>http://snapshots.jboss.org/maven2</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </pluginRepository>
+    <pluginRepository>
+      <id>snapshots.repository.codehaus.org</id>
+      <name>Codehaus Snapshots Repository</name>
+      <url>http://snapshots.repository.codehaus.org/</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </pluginRepository>
+  </pluginRepositories>
+  <build>
+    <resources> 
+      <resource> 
+        <directory>src/main/resources</directory> 
+      </resource> 
+      <resource> 
+        <directory>src/main/ruby</directory> 
+        <includes>
+          <include>**/*.rb</include>
+        </includes>
+      </resource> 
+    </resources> 
+    <plugins> 
+      <plugin>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-codegen-plugin</artifactId>
+        <version>2.0.9</version>
+        <executions>
+          <execution>
+            <id>generate-sources</id>
+            <phase>generate-sources</phase>
+            <configuration>
+              <sourceRoot>${basedir}/target/generated/src/main/java</sourceRoot>
+              <wsdlOptions>
+                <wsdlOption>
+                  <wsdl>${basedir}/src/main/resources/wsdl/ec2.wsdl</wsdl>
+                  <extraargs>
+                    <extraarg>-autoNameResolution</extraarg>
+                    <extraarg>-b</extraarg>
+                    <extraarg>${basedir}/src/main/resources/wsdl/binding.xml</extraarg>
+                  </extraargs>
+                </wsdlOption>
+              </wsdlOptions>
+            </configuration>
+            <goals>
+              <goal>wsdl2java</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.5</source>
+          <target>1.5</target>
+          <debug>true</debug>
+          <showDeprecation>true</showDeprecation>
+          <showWarnings>true</showWarnings>
+          <optimize>true</optimize>
+        </configuration>
+      </plugin>  
+    </plugins>
+  </build>
+
+    <properties>
+        <release>2.0.0.GA</release>
+        <mc-release>2.0.0.GA</mc-release>
+        <md-release>1.0.0.GA</md-release>
+    </properties>
+
+</project>
