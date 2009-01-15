@@ -135,6 +135,8 @@
                   <extraargs>
                     <extraarg>-b</extraarg>
                     <extraarg>${basedir}/src/main/resources/wsdl/binding.xml</extraarg>
+                    <extraarg>-wsdlLocation</extraarg>
+                    <extraarg>http://s3.amazonaws.com/ec2-downloads/ec2.wsdl</extraarg>
                   </extraargs>
                 </wsdlOption>
               </wsdlOptions>
