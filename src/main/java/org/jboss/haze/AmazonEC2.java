@@ -1,10 +1,14 @@
 package org.jboss.haze;
 
+import javax.jws.WebMethod;
 import javax.jws.WebService;
+import javax.jws.soap.SOAPBinding;
 
 import com.amazonaws.ec2.doc._2008_12_01.*;
 
-@WebService(targetNamespace = "http://ec2.amazonaws.com/doc/2008-12-01/", wsdlLocation = "WEB-INF/ec2.wsdl")
+//@WebService(targetNamespace = "http://ec2.amazonaws.com/doc/2008-12-01/", name = "AmazonEC2PortType")
+@SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
+@WebService(targetNamespace = "http://ec2.amazonaws.com/doc/2008-12-01/", wsdlLocation = "WEB-INF/ec2.wsdl" )
 public class AmazonEC2 implements AmazonEC2PortType {
 
 	public AllocateAddressResponseType allocateAddress(
@@ -133,10 +137,26 @@ public class AmazonEC2 implements AmazonEC2PortType {
 		return null;
 	}
 
+    //@WebResult(name = "DescribeInstancesResponse", targetNamespace = "http://ec2.amazonaws.com/doc/2008-12-01/", partName = "DescribeInstancesRequestMsgResp")
+    @WebMethod(operationName = "DescribeInstances", action = "DescribeInstances")
 	public DescribeInstancesResponseType describeInstances(
 			DescribeInstancesType describeInstancesRequestMsgReq) {
-		// TODO Auto-generated method stub
-		return null;
+		System.err.println( "DESCRIBE INSTANCES" );
+		//return null;
+		
+		DescribeInstancesResponseType response = new DescribeInstancesResponseType();
+		response.setRequestId( "d0763fa3-c24e-4989-ac9c-c9eab58c15e5" );
+		
+		ReservationSetType reservationSet = new ReservationSetType();
+		/*
+		ReservationInfoType resInfo = new ReservationInfoType();
+		resInfo.setOwnerId( "8675309" );
+		resInfo.setReservationId( "r-8686868" );
+		reservationSet.getItem().add( resInfo );
+		*/
+		response.setReservationSet( reservationSet );
+		
+		return response;
 	}
 
 	public DescribeKeyPairsResponseType describeKeyPairs(
